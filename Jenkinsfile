@@ -101,10 +101,8 @@ pipeline {
 			post {
 				always {
 					archiveArtifacts '**/*.war'
-					sshPut remote: remote, from: 'target/java-maven-1.0-SNAPSHOT.war', into: '/home/ansible/ansible-files/ansibleRoles/tomcat/files'
-				}    
-		  
-			}
+					}    
+		  }
 		}
     	
 	}	
