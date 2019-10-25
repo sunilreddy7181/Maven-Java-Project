@@ -95,11 +95,11 @@ pipeline {
             }
 			steps {
 				unstash 'Source'
-				sh "'${mvnHome}/bin/mvn' clean package"				
+				sh "'${mvnHome}/bin/mvn' clean deploy"				
 			}
 			
 			post {
-				always {
+				success{
 					archiveArtifacts '**/*.war'
 			     }    
 			}
