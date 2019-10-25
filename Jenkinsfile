@@ -108,7 +108,7 @@ pipeline {
 	
 		stage ('Deploy-to-ansible') {
                        agent {
-                               label "slave"
+                               label "Slave"
                        }
                        steps{
                         sh label: '', script: '''cd target
