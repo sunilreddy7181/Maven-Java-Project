@@ -115,7 +115,6 @@ pipeline {
                                          rm -rf webapp.war
                                          mv *.war webapp.war'''
                        }
-]
                      post {
                       success {
                           sshPublisher(publishers: [sshPublisherDesc(configName: 'ansiblemaster', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd ~/ansible-files
