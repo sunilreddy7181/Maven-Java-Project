@@ -117,7 +117,7 @@ pipeline {
                        }
                      post {
                       success {
-                          sshPublisher(publishers: [sshPublisherDesc(configName: 'ansiblemaster', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd ~/ansible-files
+                          sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-Controller', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd ~/ansible-files
                     git pull origin master
                     cd ansibleRoles
                     ansible-playbook tomcat.yml''', execTimeout: 600000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: 'target', sourceFiles: '**/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
