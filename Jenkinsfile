@@ -62,7 +62,7 @@ pipeline {
 			sshPut remote: remote, from: 'target/java-maven-1.0-SNAPSHOT.war', into: '/root/tomcat8/webapps'		        
 		    }
     	}
-    	stage ('Integration-Test') {
+    	        stage ('Integration-Test') {
 			agent {
 				label "Slave"
             }
@@ -106,9 +106,9 @@ pipeline {
 		        } 
 	               
 	
-		       stage ('Deploy-to-ansible') {
+		stage ('Deploy-to-ansible') {
                        agent {
-                         label "slave"
+                               label "slave"
                        }
                        steps{
                         sh label: '', script: '''cd target
