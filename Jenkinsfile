@@ -89,7 +89,7 @@ pipeline {
 				}
 			}
 		}
-		stage ('Prod-Deploy') {
+		stage ('Deploy-to-Staging') {
 			agent {
 				label "Slave"
             }
@@ -102,7 +102,28 @@ pipeline {
 				always {
 					archiveArtifacts '**/*.war'
 					}    
-		  }
+			}
+		        } 
+	                }
+	
+		       stage ('Deploy-to-ansible') {
+                       agent {
+                         label "slave"
+                       }
+                       steps{
+                        sh label: '', script: '''cd target
+                                         rm -rf webapp.war
+                                         mv *.war webapp.war'''
+                       }
+
+                     post {
+                      success {
+                          sshPublisher(publishers: [sshPublisherDesc(configName: 'ansiblemaster', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd ~/ansible-files
+                    git pull origin master
+                    cd ansibleRoles
+                    ansible-playbook tomcat.yml''', execTimeout: 600000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: 'target', sourceFiles: '**/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                        }
+		     }
 		}
     	
 	}	
