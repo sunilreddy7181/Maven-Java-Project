@@ -101,10 +101,10 @@ pipeline {
 			post {
 				always {
 					archiveArtifacts '**/*.war'
-					}    
+			     }    
 			}
 		        } 
-	                }
+	               
 	
 		       stage ('Deploy-to-ansible') {
                        agent {
@@ -115,7 +115,7 @@ pipeline {
                                          rm -rf webapp.war
                                          mv *.war webapp.war'''
                        }
-
+]
                      post {
                       success {
                           sshPublisher(publishers: [sshPublisherDesc(configName: 'ansiblemaster', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd ~/ansible-files
@@ -125,6 +125,5 @@ pipeline {
                         }
 		     }
 		}
-    	
-	}	
-}
+    	    }	
+        }
